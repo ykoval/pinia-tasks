@@ -30,7 +30,7 @@ export const useTaskStore = defineStore('taskStore', {
         async addTask(task) {
             this.tasks.push(task)
 
-            const res = await fetch('API_URL_TASKS', {
+            const res = await fetch(API_URL_TASKS, {
                 method: 'POST',
                 body: JSON.stringify(task),
                 headers: {'Content-Type': 'application/json'},
@@ -41,7 +41,7 @@ export const useTaskStore = defineStore('taskStore', {
         async deleteTask(id) {
             this.tasks = this.tasks.filter(t=>t.id !== id)
 
-            const res = await fetch(`API_URL_TASKS/${id}`, {
+            const res = await fetch(`${API_URL_TASKS}/${id}`, {
                 method: 'DELETE'
             })
 
@@ -51,7 +51,7 @@ export const useTaskStore = defineStore('taskStore', {
             const task = this.tasks.find(t=> t.id === id)
             task.isFav = !task.isFav
 
-            const res = await fetch(`API_URL_TASKS/${id}`, {
+            const res = await fetch(`${API_URL_TASKS}/${id}`, {
                 method: 'PATCH',
                 body: JSON.stringify({isFav: task.isFav}),
                 headers: {'Content-Type': 'application/json'},
