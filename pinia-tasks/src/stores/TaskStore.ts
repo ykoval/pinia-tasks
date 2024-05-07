@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import { API_URL_TASKS } from '@/constants'
+import type { AppState, Task } from '@/type'
 
 export const useTaskStore = defineStore('taskStore', {
-  state: (): State => ({
+  state: (): AppState => ({
     tasks: [],
     loading: false
   }),
@@ -49,7 +50,7 @@ export const useTaskStore = defineStore('taskStore', {
     },
     async toggleFav(id: string): Promise<void> {
       const task = this.tasks.find((t) => t.id === id)
-      if(!task) return
+      if (!task) return
       task.isFav = !task.isFav
       const res = await fetch(`${API_URL_TASKS}/${id}`, {
         method: 'PATCH',
